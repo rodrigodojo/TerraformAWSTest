@@ -24,5 +24,4 @@ terraform untaint NOMEDORECURSO
 terraform console
 // possibilida visualizar os recursos de maneira mais detalhada pois nele é possivel digitar qual o recursos especifico deseja ser visto.
 
-terraform output
-//
+
