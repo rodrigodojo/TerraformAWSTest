@@ -1,0 +1,10 @@
+comandos basicos para Terraform
+
+terraform init
+// usado para inicializar o terraform na pasta local.
+
+terraform plain
+// usado para planejar as modificações que serão enviadas para o AWS.
+
+terraform apply
+// usado para efetuar as modificações revisadas no plain. 
