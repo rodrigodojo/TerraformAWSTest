@@ -20,3 +20,8 @@ terraform taint NOMEDORECURSO
 
 terraform untaint NOMEDORECURSO
 // desfaz a marcação feita.
+
+terraform console
+// possibilida visualizar os recursos de maneira mais detalhada pois nele é possivel digitar qual o recursos especifico deseja ser visto.
+
+
