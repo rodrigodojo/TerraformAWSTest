@@ -24,4 +24,15 @@ terraform untaint NOMEDORECURSO
 terraform console
 // possibilida visualizar os recursos de maneira mais detalhada pois nele é possivel digitar qual o recursos especifico deseja ser visto.
 
+terraform fmt
+// auxilia na formatação(identação) dos arquivos terraform da pasta local.
+
+terraform get
+// baixa os modulos dos recursos.
+
+terraform import NOMEDORECURSO
+// importa os recursos da infra para pasta local.
+
+terraform graph base.dot 
+//  cria um arquivo chamado base com extensao .dot com informaçoes da infra.
 
