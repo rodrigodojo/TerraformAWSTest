@@ -14,4 +14,10 @@ module "bucket" {
   
   name = "my-bucket-${random_id.bucket.hex}"
 
-  }
+}
+module "bucket-2" {
+source = "./s3"
+  
+  name = "my-bucket-2-${random_id.bucket.hex}"
+
+}
