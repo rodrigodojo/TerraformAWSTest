@@ -10,9 +10,14 @@ resource "aws_s3_bucket" "b" {
   acl    = "private"
 
   tags = {
-    Name        = "My super bucket"
-    Environment = "Prod"
+    Name        = "My bucket"
+    Environment = "Dev"
   }
+}
 
+resource "aws_s3_bucket_object" "object"{
+  bucket = "${aws_s3_bucket.b.id}"
+  key = "hello_word.txt"
+  source = "arquivo.txt"
 }
  
