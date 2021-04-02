@@ -11,3 +11,7 @@ terraform apply
 
 terraform show
 // mostrar os recursos usados.
+
+terraform destroy
+// destroi a infro criada.
+
