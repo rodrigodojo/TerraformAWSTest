@@ -8,3 +8,9 @@ variable "access_key"{
 variable "secret_key"{
     default = "t/zWTQGOtPsc9bsEI8WgCM/kbns4UmV8gJvlZ7Kq"
 }
+variable "ami"{
+    default = "ami-0742b4e673072066f"
+}
+variable type{
+   default = "t2.micro"
+}
