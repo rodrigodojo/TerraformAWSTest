@@ -3,7 +3,7 @@ comandos basicos para Terraform
 terraform init
 // usado para inicializar o terraform na pasta local.
 
-terraform plain
+terraform plan
 // usado para planejar as modificações que serão enviadas para o AWS.
 
 terraform apply
@@ -15,3 +15,8 @@ terraform show
 terraform destroy
 // destroi a infro criada.
 
+terraform taint NOMEDORECURSO
+// marca o terraform-managed , forçando e ser destruido e recriado no proximo apply.
+
+terraform untaint NOMEDORECURSO
+// desfaz a marcação feita.
