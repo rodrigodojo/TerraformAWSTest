@@ -8,3 +8,6 @@ terraform plain
 
 terraform apply
 // usado para efetuar as modificações revisadas no plain. 
+
+terraform show
+// mostrar os recursos usados.
