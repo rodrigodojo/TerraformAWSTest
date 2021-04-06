@@ -9,7 +9,7 @@ locals {
 }
 
 resource "aws_vpc" "main" {
-  cidr_block = "${var.cidr_block}"
+  cidr_block = "${var.vpc_cidr}"
 
   tags = "${local.tags}"
 }
@@ -42,7 +42,7 @@ resource "aws_subnet" "public_b" {
 
 resource "aws_subnet" "private_a" {
   vpc_id            = "${aws_vpc.main.id}"
-  cidr_block        = "192.168.6.0/23"
+  cidr_block        = "${var.private_a_cidr}"
   availability_zone = "${var.region}a"
 
   tags = {
@@ -99,4 +99,87 @@ resource "aws_route_table_association" "private_a" {
 resource "aws_route_table_association" "private_b" {
   subnet_id      = "${aws_subnet.private_b.id}"
   route_table_id = "${aws_route_table.rt_private.id}"
+}
+
+resource "aws_security_group" "web" {
+  name        = "web"
+  description = "Allow public inbound traffic"
+  vpc_id      = "${aws_vpc.main.id}"
+
+  ingress {
+    from_port   = 80            #http
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = 443           #http
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["${var.private_a_cidr}"]
+  }
+
+  egress {
+    from_port   = 3306
+    to_port     = 3306
+    protocol    = "tcp"
+    cidr_blocks = ["${var.private_a_cidr}"]
+  }
+
+  tags {
+    Name = "Web Server"
+  }
+}
+
+resource "aws_security_group" "db" {
+  name        = "db"
+  description = "Allow incoming database connections"
+  vpc_id      = "${aws_vpc.main.id}"
+
+  ingress {
+    from_port      = 3306
+    to_port        = 3306
+    protocol       = "tcp"
+    security_groups = ["${aws_security_group.web.id}"]
+  }
+
+  ingress {
+    from_port   = 22
+    to_port     = 22
+    protocol    = "tcp"
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
+
+  ingress {
+    from_port   = -1
+    to_port     = -1
+    protocol    = "icmp"
+    cidr_blocks = ["${var.vpc_cidr}"]
+  }
+
+  egress {
+    from_port   = 80
+    to_port     = 80
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  egress {
+    from_port   = 443
+    to_port     = 443
+    protocol    = "tcp"
+    cidr_blocks = ["0.0.0.0/0"]
+  }
+
+  tags {
+    Name = "Database"
+  }
 }
