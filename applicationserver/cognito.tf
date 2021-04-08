@@ -1,3 +1,14 @@
+locals {
+  rs_name        = "${aws_cognito_resource_server.this.name}"
+  rs_scopes_list = "${aws_cognito_resource_server.this.scope}"
+
+  rs_scopes = [
+    "${local.rs_name}/${lookup(local.rs_scopes_list[0], "scope_name")}",
+    "${local.rs_name}/${lookup(local.rs_scopes_list[1], "scope_name")}",
+    "${local.rs_name}/${lookup(local.rs_scopes_list[2], "scope_name")}",
+  ]
+}
+
 resource "aws_cognito_user_pool" "this" {
   name = "${var.cg_pool}"
 }
