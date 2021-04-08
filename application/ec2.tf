@@ -69,3 +69,17 @@ resource "aws_autoscaling_policy" "scaledown" {
   cooldown               = "300"
   policy_type            = "SimpleScaling"
 }
+
+resource "aws_instance""jenkins"{
+  ami = "${var.ami}"
+  instance_type = "${var.instance_type}"
+
+  vpc_security_group_ids= ["${aws_security_group.db.id}"]
+  subnet_id = "${aws_subnet.public_b.id}"
+  availability_zone        = "${var.region}b"
+
+  tags = {
+    Name = "HelloWorld"
+  }
+
+}
