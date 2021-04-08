@@ -79,7 +79,7 @@ resource "aws_instance""jenkins"{
   availability_zone        = "${var.region}b"
 
   tags = {
-    Name = "HelloWorld"
+    Name = "Jenkins Machine"
   }
 
 }
